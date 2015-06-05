@@ -7,4 +7,4 @@ Install [git-annex](https://git-annex.branchable.com/), clone this repo and run 
 #####Update
 `git annex sync`  
 #####Download media
-`get annex get $file`
+`git annex get $file`
