@@ -1,10 +1,10 @@
 ##git-annex repository for http://cdn.media.ccc.de/
 
 ###Install
-Install [git-annex](https://git-annex.branchable.com/), clone this repo and run `git annex sync` to get the latest git-annex data.
+Install [git-annex](https://git-annex.branchable.com/) and pull this repo.
 
 ###Usage
 #####Update
-`git annex sync`  
+`git pull`
 #####Download media
 `git annex get $file`
