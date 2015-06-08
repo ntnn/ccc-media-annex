@@ -85,7 +85,9 @@ def annex_url(url):
     """
     LOGGER.info('Annexing {}'.format(url))
     call(['git-annex', 'addurl', url, '--relaxed',
-          '--file={}'.format(url[24:])])
+          '--file={}'.format(url.split('de/')[1])])
+    # cuts off the first part to mirror the folder structure of
+    # the media server
 
 
 def main():
