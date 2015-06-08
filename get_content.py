@@ -38,7 +38,8 @@ def request(key_or_url, ident=0):
 
 
 def get_recording_urls(key_or_url='recordings', ident=0):
-    """Generator, yields recording urls. Default yields urls for all recordings.
+    """Generator, yields recording urls for given keyword and ident.
+    If no event was given all recordings are yielded.
 
     :type key_or_url: str
     :type ident: int
@@ -56,7 +57,7 @@ def get_recording_urls(key_or_url='recordings', ident=0):
 
 
 def get_conference_events(ident):
-    """Generator, yields json dicts of the events.
+    """Generator, yields json dicts of the events of a conference.
 
     :type ident: int
     :rtype: dict
@@ -67,7 +68,7 @@ def get_conference_events(ident):
 
 
 def get_conference_recording_urls(ident):
-    """Generator, yields url strings of the recordings.
+    """Generator, yields url strings of the recordings of a conference.
 
     :type ident: int
     :rtype: str
