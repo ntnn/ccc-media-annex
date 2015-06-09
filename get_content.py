@@ -30,6 +30,7 @@ def request(key_or_url, ident=0):
     if key_or_url.startswith('http'):
         url = key_or_url
     else:
+        assert key_or_url in API_PATH.keys(), 'Invalid keyword {}'.format(key_or_url)
         url = API_SERVER + API_PATH[key_or_url] + (
             str(ident) if not ident == 0 else '')
     LOGGER.info('Sending request to {}'.format(url))
@@ -45,11 +46,6 @@ def get_recording_urls(key_or_url='recordings', ident=0):
     :type ident: int
     :rtype: str
     """
-    if not key_or_url.startswith('http'):
-        if key_or_url not in ('recordings', 'event'):
-            LOGGER.error('Invalid keyword.')
-            return
-
     recordings = request(key_or_url, ident)['recordings']
     LOGGER.info('Grabbed info, start yielding')
     for record in recordings:
