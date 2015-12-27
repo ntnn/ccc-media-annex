@@ -3,6 +3,7 @@
 import json
 import requests
 import logging
+import os.path as path
 from sys import argv
 from subprocess import call
 
@@ -80,8 +81,10 @@ def annex_url(url):
     :type url: str
     """
     LOGGER.info('Annexing {}'.format(url))
-    call(['git-annex', 'addurl', url, '--relaxed',
-          '--file={}'.format(url.split('de/')[1])])
+    filename = url.split('de/')[1]
+    if not path.isfile(filename):
+        call(['git-annex', 'addurl', url, '--relaxed',
+              '--file={}'.format(filename)])
 
 
 def main():
