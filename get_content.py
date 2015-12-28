@@ -87,6 +87,16 @@ def get_conference_url(name):
             return conference['url']
 
 
+def print_conferences():
+    """Lists conferences with acronym and id."""
+    conferences = request('conferences')['conferences']
+    for conference in conferences:
+        ident = conference['url'].split('/')[-1]
+        acronym = conference['acronym']
+        title = conference['title']
+        print("{:5}\t{:35}\t{}".format(ident, acronym, title))
+
+
 def annex_url(url):
     """Annexes the given url.
 
@@ -107,6 +117,9 @@ def main():
             return 0
         elif argv[1] == 'lookup':
             print(get_conference_url(argv[2]))
+            return 0
+        elif argv[1] == 'list':
+            print_conferences()
             return 0
         elif len(argv) == 3 and argv[1] == 'conference':
             for rec in get_conference_recording_urls(argv[2]):
