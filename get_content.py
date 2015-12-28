@@ -112,21 +112,31 @@ def annex_url(url):
 
 
 def main():
-    if 1 < len(argv) < 4:
-        if argv[1] == 'all':
-            for rec in get_recording_urls():
-                annex_url(rec)
-            return 0
-        elif argv[1] == 'lookup':
+    if argv[1] == 'help':
+        def printh(subcommand, explanation):
+            print("\t{} {}".format(argv[0], subcommand))
+            print("\t\t" + explanation)
+        print("Usage: ")
+        printh("all", "annex all media on media.ccc.de")
+        printh("lookup acronym", "lookup url of a conference using acronym")
+        printh("list", "list all available conferences on media.ccc.de in formatted output")
+        printh("conference id", "annex all media from conference using id")
+        return 0
+    elif argv[1] == 'all':
+        for rec in get_recording_urls():
+            annex_url(rec)
+        return 0
+    elif argv[1] == 'lookup':
+        if argv[2]:
             print(get_conference_url(argv[2]))
-            return 0
-        elif argv[1] == 'list':
-            print_conferences()
-            return 0
-        elif len(argv) == 3 and argv[1] == 'conference':
-            for rec in get_conference_recording_urls(argv[2]):
-                annex_url(rec)
-            return 0
+        return 0
+    elif argv[1] == 'list':
+        print_conferences()
+        return 0
+    elif len(argv) == 3 and argv[1] == 'conference':
+        for rec in get_conference_recording_urls(argv[2]):
+            annex_url(rec)
+        return 0
     LOGGER.error('No valid arguments.')
     return 1
 
