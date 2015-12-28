@@ -75,6 +75,18 @@ def get_conference_recording_urls(ident):
             yield recording_url
 
 
+def get_conference_url(name):
+    """Returns the url of a conference. Expects the acronym.
+
+    :type name: str
+    :rtype: str
+    """
+    conferences = request('conferences')['conferences']
+    for conference in conferences:
+        if conference['acronym'] == name:
+            return conference['url']
+
+
 def annex_url(url):
     """Annexes the given url.
 
@@ -92,6 +104,9 @@ def main():
         if argv[1] == 'all':
             for rec in get_recording_urls():
                 annex_url(rec)
+            return 0
+        elif argv[1] == 'lookup':
+            print(get_conference_url(argv[2]))
             return 0
         elif len(argv) == 3 and argv[1] == 'conference':
             for rec in get_conference_recording_urls(argv[2]):
