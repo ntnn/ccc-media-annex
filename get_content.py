@@ -107,6 +107,8 @@ def annex_url(url):
     if not path.isfile(filename):
         call(['git-annex', 'addurl', url, '--relaxed',
               '--file={}'.format(filename)])
+        call(['git-annex', 'addurl', url + '.torrent', '--relaxed',
+              '--file={}'.format(filename)])
 
 
 def main():
