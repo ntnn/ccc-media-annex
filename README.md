@@ -8,3 +8,7 @@ Install [git-annex](https://git-annex.branchable.com/) and pull this repo.
 `git pull`
 #####Download media
 `git annex get $file`
+
+### Contributing
+If you notice an error (or just ran `get_content.py`) run `config_annex.sh`
+before making your changes to keep the annex free from roaming UUIDs.
