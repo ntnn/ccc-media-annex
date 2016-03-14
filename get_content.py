@@ -112,7 +112,7 @@ def annex_url(url):
 
 
 def main():
-    if argv[1] == 'help':
+    if len(argv) == 1 or argv[1] == 'help':
         def printh(subcommand, explanation):
             print("\t{} {}".format(argv[0], subcommand))
             print("\t\t" + explanation)
