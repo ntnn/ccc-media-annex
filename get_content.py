@@ -128,8 +128,10 @@ def main():
         printh("conference id", "annex all media from conference using id")
         return 0
     elif argv[1] == 'all':
-        for rec in get_recording_urls():
-            annex_url(rec)
+        for conference in get_conferences():
+            for event in request(conference['url'])['events']:
+                for recording in request(event['url'])['recordings']:
+                    annex_url(recording['recording_url'])
         return 0
     elif argv[1] == 'lookup':
         if argv[2]:
