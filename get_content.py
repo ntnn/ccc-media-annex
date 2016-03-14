@@ -73,22 +73,29 @@ def get_conference_recording_urls(ident):
             yield recording_url
 
 
+def get_conferences():
+    """Generator, yields json dicts of the conferences.
+
+    :rtype: dict
+    """
+    for conference in request('conferences')['conferences']:
+        yield conference
+
+
 def get_conference_url(name):
     """Returns the url of a conference. Expects the acronym.
 
     :type name: str
     :rtype: str
     """
-    conferences = request('conferences')['conferences']
-    for conference in conferences:
+    for conference in get_conferences():
         if conference['acronym'] == name:
             return conference['url']
 
 
 def print_conferences():
     """Lists conferences with acronym and id."""
-    conferences = request('conferences')['conferences']
-    for conference in conferences:
+    for conference in get_conferences():
         ident = conference['url'].split('/')[-1]
         acronym = conference['acronym']
         title = conference['title']
