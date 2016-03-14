@@ -11,9 +11,7 @@ API_SERVER = 'http://api.media.ccc.de/'
 API_PATH = {
     'conferences': '/public/conferences',
     'conference': '/public/conferences/',
-    'events': '/public/events',
     'event': '/public/events/',
-    'recordings': '/public/recordings',
     'recording': '/public/recordings/'
     }
 
