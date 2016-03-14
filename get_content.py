@@ -37,7 +37,7 @@ def request(key_or_url, ident=0):
     return json.loads(response)
 
 
-def get_recording_urls(key_or_url='recordings', ident=0):
+def get_recording_urls(key_or_url='recording', ident=0):
     """Generator, yields recording urls for given keyword and ident.
     If no event was given all recordings are yielded.
 
