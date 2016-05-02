@@ -16,3 +16,4 @@ before making your changes to keep the annex free from roaming UUIDs.
 Mirrors:
 * https://github.com/ntnn/ccc-media-annex
 * https://gitlab.com/ntnn/ccc-media-annex
+* https://bitbucket.org/ntnn/ccc-media-annex
