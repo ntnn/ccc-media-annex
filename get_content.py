@@ -4,7 +4,7 @@ import json
 import requests
 import logging
 import os.path as path
-from sys import argv
+import argparse
 from subprocess import call
 
 API_SERVER = 'http://api.media.ccc.de/'
@@ -15,7 +15,6 @@ API_PATH = {
     'recording': '/public/recordings/'
     }
 
-logging.basicConfig(level=logging.ERROR)
 LOGGER = logging.getLogger(__name__)
 
 
@@ -117,35 +116,36 @@ def annex_url(url):
 
 
 def main():
-    if len(argv) == 1 or argv[1] == 'help':
-        def printh(subcommand, explanation):
-            print("\t{} {}".format(argv[0], subcommand))
-            print("\t\t" + explanation)
-        print("Usage: ")
-        printh("all", "annex all media on media.ccc.de")
-        printh("lookup acronym", "lookup url of a conference using acronym")
-        printh("list", "list all available conferences on media.ccc.de in formatted output")
-        printh("conference id", "annex all media from conference using id")
-        return 0
-    elif argv[1] == 'all':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--level', default='WARNING', choices=['NOTSET', 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],  help='Log level to use')
+
+    subparsers = parser.add_subparsers(dest='subcommand')
+    parser_all = subparsers.add_parser('all', help='Annex all media on media.ccc.de')
+    parser_list = subparsers.add_parser('list', help='List all available conferences on media.ccc.de')
+
+    parser_lookup = subparsers.add_parser('lookup', help='Look up url of a conference')
+    parser_lookup.add_argument('id', nargs=1, help='Id of conference to look up')
+
+    parser_conference = subparsers.add_parser('conference', help='Annex all media of a conference by id')
+    parser_conference.add_argument('id', nargs=1, help='Id of conference to annex')
+
+    args = parser.parse_args()
+
+    logging.basicConfig(level=args.level.upper())
+    LOGGER.setLevel(args.level.upper())
+
+    if args.subcommand == 'all':
         for conference in get_conferences():
             for event in request(conference['url'])['events']:
                 for recording in request(event['url'])['recordings']:
                     annex_url(recording['recording_url'])
-        return 0
-    elif argv[1] == 'lookup':
-        if argv[2]:
-            print(get_conference_url(argv[2]))
-        return 0
-    elif argv[1] == 'list':
+    elif args.subcommand == 'lookup':
+        print(get_conference_url(args.id))
+    elif args.subcommand == 'list':
         print_conferences()
-        return 0
-    elif len(argv) == 3 and argv[1] == 'conference':
-        for rec in get_conference_recording_urls(argv[2]):
+    elif args.subcommand == 'conference':
+        for rec in get_conference_recording_urls(args.id):
             annex_url(rec)
-        return 0
-    LOGGER.error('No valid arguments.')
-    return 1
 
 
 if __name__ == "__main__":
