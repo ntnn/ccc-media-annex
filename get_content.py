@@ -124,10 +124,10 @@ def main():
     parser_list = subparsers.add_parser('list', help='List all available conferences on media.ccc.de')
 
     parser_lookup = subparsers.add_parser('lookup', help='Look up url of a conference')
-    parser_lookup.add_argument('id', nargs=1, help='Id of conference to look up')
+    parser_lookup.add_argument('id', nargs='+', help='Id of conference to look up')
 
     parser_conference = subparsers.add_parser('conference', help='Annex all media of a conference by id')
-    parser_conference.add_argument('id', nargs=1, help='Id of conference to annex')
+    parser_conference.add_argument('id', nargs='+', help='Id of conference to annex')
 
     args = parser.parse_args()
 
@@ -140,12 +140,14 @@ def main():
                 for recording in request(event['url'])['recordings']:
                     annex_url(recording['recording_url'])
     elif args.subcommand == 'lookup':
-        print(get_conference_url(args.id))
+        for id in args.id:
+            print(get_conference_url(id))
     elif args.subcommand == 'list':
         print_conferences()
     elif args.subcommand == 'conference':
-        for rec in get_conference_recording_urls(args.id):
-            annex_url(rec)
+        for id in args.id:
+            for rec in get_conference_recording_urls(id):
+                annex_url(rec)
 
 
 if __name__ == "__main__":
