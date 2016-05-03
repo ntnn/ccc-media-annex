@@ -149,7 +149,8 @@ def main():
         for id in args.id:
             for rec in get_conference_recording_urls(id):
                 annex_url(rec)
-
+    else:
+        parser.parse_args(['-h'])
 
 if __name__ == "__main__":
     main()
