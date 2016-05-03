@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Author: Nelo-T. Wallus <nelo@wallus.de>
+
 import json
 import requests
 import logging
