@@ -1,15 +1,15 @@
-##git-annex repository for http://media.ccc.de/
+git-annex repository for http://media.ccc.de/
 
-###Install
+#Install
 Install [git-annex](https://git-annex.branchable.com/) and clone this repo.
 
-###Usage
-#####Update
+#Usage
+##Update
 `git pull`
-#####Download media
+##Download media
 `git annex get $file`
 
-### Contributing
+# Contributing
 Before making changes to the repositories run `config_annex.sh` or run
 `git config annex.uuid 00000000-0000-0000-0000-000000000001` to keep the
 repo free from roaming UUIDs.
